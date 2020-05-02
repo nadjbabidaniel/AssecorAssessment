@@ -48,16 +48,20 @@ namespace AssecorAssessmentTest.Services
                             if (!string.IsNullOrEmpty(temp2)) elements.Add(temp2);                           
 
                             if (elements.Count == 4)
-                            {
-                                recordCopy = new CopyCsvModel()
+                            {                                
+                                if(int.TryParse(elements[3], out int IdElement))
                                 {
-                                    FirstElement = elements[0],
-                                    SecondElement = elements[1],
-                                    ThirdElement = elements[2],
-                                    FourthElement = int.Parse(elements[3])
-                                };
+                                    recordCopy = new CopyCsvModel()
+                                    {
+                                        FirstElement = elements[0],
+                                        SecondElement = elements[1],
+                                        ThirdElement = elements[2],
+                                        FourthElement = IdElement
+                                    };
 
-                                recordsCopy.Add(recordCopy);
+                                    recordsCopy.Add(recordCopy);
+                                }
+                                
                                 elements.Clear();
                             }
                             
@@ -99,31 +103,7 @@ namespace AssecorAssessmentTest.Services
 
         private List<PersonModel> ValidateData(List<CopyCsvModel> recordsCopy)
         {
-            List<PersonModel> persons = new List<PersonModel>();
-
-            foreach (var recordCopy in recordsCopy)
-            {
-                if(recordCopy.FourthElement != null)
-                {
-                    PersonModel person = new PersonModel();
-                }
-            }
-
-            for (int i = 0; i < recordsCopy.Count; i++)
-            {
-                PersonModel person = new PersonModel();
-                //var recordCopy = recordsCopy[i];
-
-                if (recordsCopy[i].FourthElement == null && i < recordsCopy.Count-1)
-                {
-                   
-                }
-
-                else
-                {
-
-                }
-            }
+            
 
             return null;
         }
