@@ -8,7 +8,7 @@ namespace AssecorAssessmentTest.Services
 {
     public interface ICsvParserService
     {
-        List<PersonModel> ReadCsvFileToEmployeeModel(string path);
+        List<PersonModel> ReadCsvFileToEmployeeModel();
         void WriteNewCsvFile(string path, List<PersonModel> personModels);
     }
 }

@@ -27,9 +27,8 @@ namespace AssecorAssessmentTest.Controllers
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
-            var csvParserService = new CsvParserService();
-            var path = @"C:\Users\dnadjbabi\Downloads\assecor-assessment-backend-master\sample-input.csv";
-            var result = csvParserService.ReadCsvFileToEmployeeModel(path);
+            var csvParserService = new CsvParserService();           
+            var result = csvParserService.ReadCsvFileToEmployeeModel();
 
 
             return null;
