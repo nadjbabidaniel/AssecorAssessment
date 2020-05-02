@@ -29,7 +29,7 @@ namespace AssecorAssessmentTest.Services
                     csv.Configuration.HasHeaderRecord = false;                    
                     csv.Configuration.MissingFieldFound = null;
 
-                    List<CopyCsvModel> recordsCopy = new List<CopyCsvModel>();
+                    List<PersonModel> records = new List<PersonModel>();
 
                     List<string> elements = new List<string>();
                     while (csv.Read())
@@ -41,7 +41,7 @@ namespace AssecorAssessmentTest.Services
                         var ID = csv.GetField(3);
                         #endregion
 
-                        CopyCsvModel recordCopy = null;
+                        PersonModel personModel = null;
 
                         if (string.IsNullOrEmpty(ID))
                         {
@@ -53,15 +53,16 @@ namespace AssecorAssessmentTest.Services
                             {                                
                                 if(int.TryParse(elements[3], out int IdElement))
                                 {
-                                    recordCopy = new CopyCsvModel()
+                                    personModel = new PersonModel()
                                     {
-                                        FirstElement = elements[0],
-                                        SecondElement = elements[1],
-                                        ThirdElement = elements[2],
-                                        FourthElement = IdElement
+                                        FirstName = elements[0],
+                                        Lastname = elements[1],
+                                        City = elements[2],
+                                        Id = IdElement
                                     };
 
-                                    recordsCopy.Add(recordCopy);
+                                    ExtractZipFromCity(ref personModel);
+                                    records.Add(personModel);
                                 }
                                 
                                 elements.Clear();
@@ -73,15 +74,13 @@ namespace AssecorAssessmentTest.Services
                         else
                         {
                             elements.Clear();
-                            recordCopy = csv.GetRecord<CopyCsvModel>();
+                            personModel = csv.GetRecord<PersonModel>();
+                            ExtractZipFromCity(ref personModel);
                         }
                         
-                        recordsCopy.Add(recordCopy);
-                    }
+                        records.Add(personModel);
+                    }                   
 
-                    var records = ValidateData(recordsCopy);
-
-                    //var records = csv.GetRecords<PersonModel>().ToList();
                     return records;
                 }
             }
@@ -103,12 +102,14 @@ namespace AssecorAssessmentTest.Services
             }
         }
 
-        private List<PersonModel> ValidateData(List<CopyCsvModel> recordsCopy)
+        private void ExtractZipFromCity(ref PersonModel personCopy)
         {
-            
+            string zipCity = personCopy.City;
+            string[] zipCityArray = zipCity.Split(' ');
 
-            return null;
-        }
+            personCopy.Zipcode = zipCityArray[0];
+            personCopy.City = zipCityArray[1];
+        }        
 
         public void WriteNewCsvFile(string path, List<PersonModel> employeeModels)
         {
