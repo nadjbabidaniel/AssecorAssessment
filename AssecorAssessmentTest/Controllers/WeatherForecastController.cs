@@ -12,7 +12,11 @@ namespace AssecorAssessmentTest.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        public IParserService IParserService { get; }
+        private IParserService IParserService { get; }
+        private Dictionary<int,string> dictionary = new Dictionary<int, string>() 
+        {
+            { 1, "blau"}, { 2, "grün"}, { 3, "violett"},{ 4, "rot"}, { 5, "gelb"}, { 6, "türkis"}, { 7, "weiß"}
+        };
 
         public WeatherForecastController(IParserService iParserService)
         {
