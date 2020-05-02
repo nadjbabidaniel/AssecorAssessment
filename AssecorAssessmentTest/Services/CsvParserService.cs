@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AssecorAssessmentTest.Services
 {
-    public class CsvParserService : ICsvParserService
+    public class CsvParserService : IParserService
     {
         private const string path = @"C:\Users\dnadjbabi\Downloads\assecor-assessment-backend-master\sample-input.csv";
      
@@ -111,7 +111,7 @@ namespace AssecorAssessmentTest.Services
             personCopy.City = zipCityArray[1];
         }        
 
-        public void WriteNewCsvFile(string path, List<PersonModel> employeeModels)
+        public void WriteNewCsvFile(List<PersonModel> employeeModels)
         {
             using (StreamWriter sw = new StreamWriter(path, false, new UTF8Encoding(true)))
             using (CsvWriter cw = new CsvWriter(sw, System.Globalization.CultureInfo.InvariantCulture))

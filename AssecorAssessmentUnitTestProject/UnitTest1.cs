@@ -1,4 +1,5 @@
 using AssecorAssessmentTest.Controllers;
+using AssecorAssessmentTest.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AssecorAssessmentUnitTestProject
@@ -9,8 +10,10 @@ namespace AssecorAssessmentUnitTestProject
         [TestMethod]
         public void TestMethod1()
         {
+
+
             // Arrange
-            var controller = new WeatherForecastController(null);
+            var controller = new WeatherForecastController(new CsvParserService());
 
 
             // Act

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace AssecorAssessmentTest.Services
 {
-    public interface ICsvParserService
+    public interface IParserService
     {
         List<PersonModel> ReadCsvFileToEmployeeModel();
-        void WriteNewCsvFile(string path, List<PersonModel> personModels);
+        void WriteNewCsvFile(List<PersonModel> personModels);
     }
 }

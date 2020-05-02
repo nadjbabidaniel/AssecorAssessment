@@ -12,23 +12,19 @@ namespace AssecorAssessmentTest.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
+        public IParserService IParserService { get; }
 
-        private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(IParserService iParserService)
         {
-            _logger = logger;
-        }
+            IParserService = iParserService;
+
+            var result = IParserService.ReadCsvFileToEmployeeModel();
+        }        
 
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
-        {
-            var csvParserService = new CsvParserService();           
-            var result = csvParserService.ReadCsvFileToEmployeeModel();
+        {        
+            var result = IParserService.ReadCsvFileToEmployeeModel();
 
 
             return null;
