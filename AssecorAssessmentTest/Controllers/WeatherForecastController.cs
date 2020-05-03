@@ -43,5 +43,17 @@ namespace AssecorAssessmentTest.Controllers
         {
             return JsonSerializer.Serialize(Results);            
         }
+
+        [HttpGet]
+        public string GetPerson(int Id)
+        {
+            return JsonSerializer.Serialize(Results.Select(x => x.Id == Id).ToList());
+        }
+
+        [HttpGet]
+        public string GetColor(string color)
+        {
+            return JsonSerializer.Serialize(Results.Select(x => x.Color.Equals(color)).ToList());
+        }
     }
 }
