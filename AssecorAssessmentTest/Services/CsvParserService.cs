@@ -111,16 +111,16 @@ namespace AssecorAssessmentTest.Services
             personCopy.City = zipCityArray[1];
         }        
 
-        public void WriteNewCsvFile(List<PersonModel> employeeModels)
+        public void WriteNewCsvFile(List<PersonModel> personModels)
         {
             using (StreamWriter sw = new StreamWriter(path, false, new UTF8Encoding(true)))
             using (CsvWriter cw = new CsvWriter(sw, System.Globalization.CultureInfo.InvariantCulture))
             {
-                cw.WriteHeader<PersonModel>();
+                //cw.WriteHeader<PersonModel>();
                 cw.NextRecord();
-                foreach (PersonModel emp in employeeModels)
+                foreach (PersonModel person in personModels)
                 {
-                    cw.WriteRecord<PersonModel>(emp);
+                    cw.WriteRecord<PersonModel>(person);
                     cw.NextRecord();
                 }
             }
