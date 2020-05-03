@@ -11,7 +11,6 @@ using Microsoft.Extensions.Logging;
 namespace AssecorAssessmentTest.Controllers
 {
     [ApiController]
-    //[Route("[controller]")]
     public class PersonsController : ControllerBase
     {
         private IParserService IParserService { get; }
@@ -39,24 +38,24 @@ namespace AssecorAssessmentTest.Controllers
         }
 
         [HttpGet]
-        [Route("Persons")]
+        [Route("persons")]
         public string GetPersons()
         {
             return JsonSerializer.Serialize(Results);
         }
 
         [HttpGet]
-        [Route("Persons/{id?}")]
+        [Route("persons/{id?}")]
         public string GetPerson(int Id)
         {
-            return JsonSerializer.Serialize(Results.Select(x => x.Id == Id).ToList());
+            return JsonSerializer.Serialize(Results.FindAll(x => x.Id == Id).ToList());
         }
 
         [HttpGet]
-        [Route("/Persons/color/{color}")]
+        [Route("/persons/color/{color}")]
         public string GetColor(string color)
         {
-            return JsonSerializer.Serialize(Results.Select(x => x.Color.Equals(color)).ToList());
+            return JsonSerializer.Serialize(Results.FindAll(x => x.Color.Equals(color)).ToList());
         }
 
         //[HttpPost]
