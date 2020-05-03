@@ -11,8 +11,9 @@ namespace AssecorAssessmentUnitTestProject
     [TestClass]
     public class PersonApiTest
     {
-        private static readonly PersonModel Person = new PersonModel() { Id = 1, Lastname = "Petersen", FirstName = "Peter", City = "Stralsund", Zipcode = "18439", Color = "blau"};
-        private static readonly List<PersonModel> Persons = new List<PersonModel>() { Person };
+        private static readonly PersonModel PersonA = new PersonModel() { Id = 1, Lastname = "Petersen", FirstName = "Peter", City = "Stralsund", Zipcode = "18439", Color = "blau"};
+        private static readonly PersonModel PersonB = new PersonModel() { Id = 6, Lastname = "Fujitsu,", FirstName = "Tastatur,", City = "Japan,", Zipcode = "42342", Color = "türkis" };
+        private static readonly List<PersonModel> Persons = new List<PersonModel>() { PersonA, PersonB };
 
         private Mock<IParserService> ParserService = new Mock<IParserService>();
 
@@ -37,7 +38,7 @@ namespace AssecorAssessmentUnitTestProject
             List<PersonModel> response = JsonConvert.DeserializeObject<List<PersonModel>>(jsonResponse);
 
             // Assert
-            Assert.AreEqual(response.Count, 1);
+            Assert.AreEqual(response.Count, 2);
         }
 
         [TestMethod]
@@ -47,12 +48,13 @@ namespace AssecorAssessmentUnitTestProject
             var controller = new PersonsController(ParserService.Object);
 
             // Act
-            var jsonResponse = controller.GetPerson(Person.Id);
+            var jsonResponse = controller.GetPerson(PersonA.Id);
             List<PersonModel> response = JsonConvert.DeserializeObject<List<PersonModel>>(jsonResponse);
 
             // Assert
             Assert.AreEqual(response.Count, 1);
-            Assert.AreEqual(response[0].Color, Dictionary[Person.Id]);
+            Assert.AreEqual(response[0].Zipcode, PersonA.Zipcode);
+            Assert.AreEqual(response[0].Color, Dictionary[PersonA.Id]);
         }
 
         [TestMethod]
@@ -62,12 +64,12 @@ namespace AssecorAssessmentUnitTestProject
             var controller = new PersonsController(ParserService.Object);
 
             // Act
-            var jsonResponse = controller.GetColor(Person.Color);
+            var jsonResponse = controller.GetColor(PersonB.Color);
             List<PersonModel> response = JsonConvert.DeserializeObject<List<PersonModel>>(jsonResponse);
 
             // Assert
             Assert.AreEqual(response.Count, 1);
-            Assert.AreEqual(response[0].Color, Dictionary[Person.Id]);
+            Assert.AreEqual(response[0].Color, Dictionary[PersonB.Id]);
         }
     }
 }
