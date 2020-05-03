@@ -58,10 +58,19 @@ namespace AssecorAssessmentTest.Controllers
             return JsonSerializer.Serialize(Results.FindAll(x => x.Color.Equals(color)).ToList());
         }
 
-        //[HttpPost]
-        //public void InsertPerson(List<PersonModel> personModels)
-        //{
-        //    IParserService.WriteNewCsvFile(personModels);
-        //}
+        [HttpPost]
+        [Route("persons1")]
+        public void InsertPerson([FromBody] List<PersonModel> personModels)
+        {
+            try
+            {
+                IParserService.WriteNewCsvFile(personModels);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

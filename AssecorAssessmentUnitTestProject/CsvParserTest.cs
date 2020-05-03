@@ -19,5 +19,21 @@ namespace AssecorAssessmentUnitTestProject
             // Assert
             Assert.AreEqual(personsModel.Count, 10);
         }
+
+        [TestMethod]
+        [TestCategory("Integration")]
+        public void WriteNewCsvFileTest()
+        {
+            // Arrange        
+            IParserService service = new CsvParserService();
+
+            // Act
+            var personsModel = service.ReadCsvFileToEmployeeModel();
+            if (personsModel == null || personsModel.Count == 0) return;
+            personsModel.RemoveAt(0);
+
+            service.WriteNewCsvFile(personsModel);
+            
+        }
     }
 }

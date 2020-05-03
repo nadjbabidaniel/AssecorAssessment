@@ -71,5 +71,15 @@ namespace AssecorAssessmentUnitTestProject
             Assert.AreEqual(response.Count, 1);
             Assert.AreEqual(response[0].Color, Dictionary[PersonB.Id]);
         }
+
+        [TestMethod]
+        public void InsertPersonTest()
+        {
+            // Arrange          
+            var controller = new PersonsController(ParserService.Object);
+
+            // Act
+            controller.InsertPerson(Persons);   // Service is Mock so it wont be overridden        
+        }
     }
 }

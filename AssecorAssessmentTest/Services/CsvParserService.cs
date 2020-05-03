@@ -12,7 +12,7 @@ namespace AssecorAssessmentTest.Services
 {
     public class CsvParserService : IParserService
     {
-        private const string path = @"C:\Users\dnadjbabi\Downloads\assecor-assessment-backend-master\sample-input.csv";
+        private const string path = @"C:\Users\dnadjbabi\Downloads\sample-input.csv";
      
         public List<PersonModel> ReadCsvFileToEmployeeModel()
         {
@@ -107,8 +107,11 @@ namespace AssecorAssessmentTest.Services
             string zipCity = personCopy.City;
             string[] zipCityArray = zipCity.Split(' ');
 
-            personCopy.Zipcode = zipCityArray[0];
-            personCopy.City = zipCityArray[1];
+            if (zipCityArray.Length == 2)
+            {
+                personCopy.Zipcode = zipCityArray[0];
+                personCopy.City = zipCityArray[1]; 
+            }
         }        
 
         public void WriteNewCsvFile(List<PersonModel> personModels)
@@ -116,10 +119,10 @@ namespace AssecorAssessmentTest.Services
             using (StreamWriter sw = new StreamWriter(path, false, new UTF8Encoding(true)))
             using (CsvWriter cw = new CsvWriter(sw, System.Globalization.CultureInfo.InvariantCulture))
             {
-                //cw.WriteHeader<PersonModel>();
-                cw.NextRecord();
+                cw.Configuration.Delimiter = ", ";
+
                 foreach (PersonModel person in personModels)
-                {
+                {                    
                     cw.WriteRecord<PersonModel>(person);
                     cw.NextRecord();
                 }
