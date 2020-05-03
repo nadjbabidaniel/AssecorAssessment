@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
+using AssecorAssessmentTest.Model;
 using AssecorAssessmentTest.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -13,7 +15,8 @@ namespace AssecorAssessmentTest.Controllers
     public class WeatherForecastController : ControllerBase
     {
         private IParserService IParserService { get; }
-        private Dictionary<int,string> dictionary = new Dictionary<int, string>() 
+        private List<PersonModel> Results { get; set; }
+        private readonly Dictionary<int, string> Dictionary = new Dictionary<int, string>()
         {
             { 1, "blau"}, { 2, "grün"}, { 3, "violett"},{ 4, "rot"}, { 5, "gelb"}, { 6, "türkis"}, { 7, "weiß"}
         };
@@ -22,16 +25,23 @@ namespace AssecorAssessmentTest.Controllers
         {
             IParserService = iParserService;
 
-            var result = IParserService.ReadCsvFileToEmployeeModel();
-        }        
+            Results = IParserService.ReadCsvFileToEmployeeModel();
+
+            UpdateColor(Results);
+        }
+
+        private void UpdateColor(List<PersonModel> results)
+        {
+            foreach (var person in results)
+            {
+                person.Color = Dictionary[person.Id];
+            }
+        }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
-        {        
-            var result = IParserService.ReadCsvFileToEmployeeModel();
-
-
-            return null;
+        public string GetPersons()
+        {
+            return JsonSerializer.Serialize(Results);            
         }
     }
 }

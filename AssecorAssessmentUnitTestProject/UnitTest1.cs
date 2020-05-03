@@ -17,7 +17,7 @@ namespace AssecorAssessmentUnitTestProject
 
 
             // Act
-            var response = controller.Get();
+            var response = controller.GetPersons();
 
         }
     }
