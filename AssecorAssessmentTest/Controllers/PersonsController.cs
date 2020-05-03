@@ -15,7 +15,7 @@ namespace AssecorAssessmentTest.Controllers
     {
         private IParserService IParserService { get; }
         private List<PersonModel> Results { get; set; }
-        private readonly Dictionary<int, string> Dictionary = new Dictionary<int, string>()
+        private static readonly Dictionary<int, string> Dictionary = new Dictionary<int, string>()
         {
             { 1, "blau"}, { 2, "grün"}, { 3, "violett"},{ 4, "rot"}, { 5, "gelb"}, { 6, "türkis"}, { 7, "weiß"}
         };
