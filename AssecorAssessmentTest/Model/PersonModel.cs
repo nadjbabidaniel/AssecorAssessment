@@ -5,6 +5,10 @@ namespace AssecorAssessmentTest.Model
 {
     public class PersonModel
     {
+
+        [Index(3)]
+        public int Id { get; set; }
+
         [Index(0)]
         public string Lastname { get; set; }
 
@@ -14,10 +18,7 @@ namespace AssecorAssessmentTest.Model
         public string Zipcode { get; set; }
 
         [Index(2)]
-        public string City { get; set; }
-
-        [Index(3)]
-        public int Id { get; set; }
+        public string City { get; set; }      
 
         public string Color { get; set; }
     }

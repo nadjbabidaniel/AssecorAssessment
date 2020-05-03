@@ -11,8 +11,8 @@ using Microsoft.Extensions.Logging;
 namespace AssecorAssessmentTest.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    //[Route("[controller]")]
+    public class PersonsController : ControllerBase
     {
         private IParserService IParserService { get; }
         private List<PersonModel> Results { get; set; }
@@ -21,7 +21,7 @@ namespace AssecorAssessmentTest.Controllers
             { 1, "blau"}, { 2, "grün"}, { 3, "violett"},{ 4, "rot"}, { 5, "gelb"}, { 6, "türkis"}, { 7, "weiß"}
         };
 
-        public WeatherForecastController(IParserService iParserService)
+        public PersonsController(IParserService iParserService)
         {
             IParserService = iParserService;
 
@@ -39,27 +39,30 @@ namespace AssecorAssessmentTest.Controllers
         }
 
         [HttpGet]
+        [Route("Persons")]
         public string GetPersons()
         {
-            return JsonSerializer.Serialize(Results);            
+            return JsonSerializer.Serialize(Results);
         }
 
         [HttpGet]
+        [Route("Persons/{id?}")]
         public string GetPerson(int Id)
         {
             return JsonSerializer.Serialize(Results.Select(x => x.Id == Id).ToList());
         }
 
         [HttpGet]
+        [Route("/Persons/color/{color}")]
         public string GetColor(string color)
         {
             return JsonSerializer.Serialize(Results.Select(x => x.Color.Equals(color)).ToList());
         }
 
-        [HttpPost]
-        public void InsertPerson(List<PersonModel> personModels)
-        {
-            IParserService.WriteNewCsvFile(personModels);
-        }
+        //[HttpPost]
+        //public void InsertPerson(List<PersonModel> personModels)
+        //{
+        //    IParserService.WriteNewCsvFile(personModels);
+        //}
     }
 }

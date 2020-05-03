@@ -13,7 +13,7 @@ namespace AssecorAssessmentUnitTestProject
 
 
             // Arrange
-            var controller = new WeatherForecastController(new CsvParserService());
+            var controller = new PersonsController(new CsvParserService());
 
 
             // Act
