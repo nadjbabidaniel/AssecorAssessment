@@ -1,11 +1,12 @@
 ﻿using AssecorAssessmentTest.Mappers;
 using CsvHelper.Configuration.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace AssecorAssessmentTest.Model
 {
     public class PersonModel
     {
-
+        [Key]
         [Index(3)]
         public int Id { get; set; }
 
