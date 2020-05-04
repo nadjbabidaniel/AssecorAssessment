@@ -31,7 +31,7 @@ namespace AssecorAssessmentTest
             //services.AddDbContext<PersonDbContext>(opts => opts.UseInMemoryDatabase("personsDB"));
             //services.AddScoped<PersonDbContext>();
 
-            services.AddDbContext<PersonDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("CustomerDb")));
+            services.AddDbContext<PersonDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PersonDb")));
 
             services.AddControllers();
             services.AddScoped<IParserService, CsvParserService>();
