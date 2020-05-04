@@ -10,14 +10,11 @@ namespace AssecorAssessmentTest.Model
     {
         public DbSet<PersonModel> Persons { get; set; }
 
-        public PersonDbContext(DbContextOptions<PersonDbContext> options) : base(options)
-        {
-            LoadDefaultPersons();
-        }
+        public PersonDbContext(DbContextOptions<PersonDbContext> options) : base(options)  { }
 
-        private void LoadDefaultPersons()
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //Persons.Add(new PersonModel { });
-        }
+            modelBuilder.Seed();
+        }        
     }
 }
