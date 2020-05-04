@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AssecorAssessmentTest.Migrations
 {
     [DbContext(typeof(PersonDbContext))]
-    [Migration("20200504013125_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20200504233631_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,9 +23,7 @@ namespace AssecorAssessmentTest.Migrations
             modelBuilder.Entity("AssecorAssessmentTest.Model.PersonModel", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
@@ -45,6 +43,24 @@ namespace AssecorAssessmentTest.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Persons");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            City = "Stralsund",
+                            FirstName = "Peter",
+                            Lastname = "Petersen",
+                            Zipcode = "18439"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            City = "Japan,",
+                            FirstName = "Tastatur,",
+                            Lastname = "Fujitsu,",
+                            Zipcode = "42342"
+                        });
                 });
 #pragma warning restore 612, 618
         }

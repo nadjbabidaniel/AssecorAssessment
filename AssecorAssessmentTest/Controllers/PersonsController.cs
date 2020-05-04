@@ -59,14 +59,14 @@ namespace AssecorAssessmentTest.Controllers
         }
 
         [HttpPost]
-        [Route("persons1")]
+        [Route("persons")]
         public void InsertPerson([FromBody] List<PersonModel> personModels)
         {
             try
             {
                 IParserService.WriteNewCsvFile(personModels);
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
                 throw;

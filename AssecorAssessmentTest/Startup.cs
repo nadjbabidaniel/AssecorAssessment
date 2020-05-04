@@ -34,7 +34,8 @@ namespace AssecorAssessmentTest
             services.AddDbContext<PersonDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PersonDb")));
 
             services.AddControllers();
-            services.AddScoped<IParserService, CsvParserService>();
+            //services.AddScoped<IParserService, CsvParserService>();
+            services.AddScoped<IParserService, DatabaseParserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -2,10 +2,26 @@
 
 namespace AssecorAssessmentTest.Migrations
 {
-    public partial class Seed_Method_added_with_Initial_Data : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Persons",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false),
+                    Lastname = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    Zipcode = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    Color = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Persons", x => x.Id);
+                });
+
             migrationBuilder.InsertData(
                 table: "Persons",
                 columns: new[] { "Id", "City", "Color", "FirstName", "Lastname", "Zipcode" },
@@ -19,15 +35,8 @@ namespace AssecorAssessmentTest.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DeleteData(
-                table: "Persons",
-                keyColumn: "Id",
-                keyValue: 1);
-
-            migrationBuilder.DeleteData(
-                table: "Persons",
-                keyColumn: "Id",
-                keyValue: 6);
+            migrationBuilder.DropTable(
+                name: "Persons");
         }
     }
 }

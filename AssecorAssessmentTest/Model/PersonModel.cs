@@ -1,12 +1,13 @@
 ﻿using AssecorAssessmentTest.Mappers;
 using CsvHelper.Configuration.Attributes;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AssecorAssessmentTest.Model
 {
     public class PersonModel
     {
-        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Index(3)]
         public int Id { get; set; }
 
