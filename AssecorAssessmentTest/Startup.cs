@@ -28,8 +28,10 @@ namespace AssecorAssessmentTest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<PersonDbContext>(opts => opts.UseInMemoryDatabase("personsDB"));
-            services.AddScoped<PersonDbContext>();
+            //services.AddDbContext<PersonDbContext>(opts => opts.UseInMemoryDatabase("personsDB"));
+            //services.AddScoped<PersonDbContext>();
+
+            services.AddDbContext<PersonDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("CustomerDb")));
 
             services.AddControllers();
             services.AddScoped<IParserService, CsvParserService>();
