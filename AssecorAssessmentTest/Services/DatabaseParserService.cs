@@ -23,10 +23,9 @@ namespace AssecorAssessmentTest.Services
 
                 return personList == null ? new List<PersonModel>() : personList;
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-
-                throw;
+                throw new Exception(e.Message);
             }
         }
 
