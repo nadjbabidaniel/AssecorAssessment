@@ -47,9 +47,9 @@ namespace AssecorAssessmentTest.Controllers
         //[HttpGet("{id}")]
         [HttpGet]        
         [Route("/persons/{id}")]
-        public string GetPerson(Int32 Id)
+        public string GetPerson(int id)
         {
-            return JsonSerializer.Serialize(Results.FindAll(x => x.Id == Id).ToList());            
+            return JsonSerializer.Serialize(Results.FindAll(x => x.Id == id).ToList());            
         }
 
         [HttpGet]
