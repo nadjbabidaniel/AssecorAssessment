@@ -38,17 +38,18 @@ namespace AssecorAssessmentTest.Controllers
         }
 
         [HttpGet]
-        [Route("persons")]
+        [Route("/persons")]
         public string GetPersons()
         {
             return JsonSerializer.Serialize(Results);
         }
 
-        [HttpGet]
-        [Route("persons/{id?}")]
-        public string GetPerson(int Id)
+        //[HttpGet("{id}")]
+        [HttpGet]        
+        [Route("/persons/{id}")]
+        public string GetPerson(Int32 Id)
         {
-            return JsonSerializer.Serialize(Results.FindAll(x => x.Id == Id).ToList());
+            return JsonSerializer.Serialize(Results.FindAll(x => x.Id == Id).ToList());            
         }
 
         [HttpGet]
