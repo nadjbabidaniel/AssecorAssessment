@@ -28,8 +28,8 @@ namespace AssecorAssessmentTest
             services.AddDbContext<PersonDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PersonDb")));
 
             services.AddControllers();
-            //services.AddScoped<IParserService, CsvParserService>();
-            services.AddScoped<IParserService, DatabaseParserService>();
+            services.AddScoped<IParserService, CsvParserService>();
+            //services.AddScoped<IParserService, DatabaseParserService>();
 
             services.AddSwaggerGen((options) => 
             {
