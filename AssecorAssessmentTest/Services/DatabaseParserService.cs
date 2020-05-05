@@ -16,10 +16,18 @@ namespace AssecorAssessmentTest.Services
         }
         public List<PersonModel> ReadFileToEmployeeModel()
         {
-            var personList = _context.Persons.ToList();
-            ExtractZipFromCity(ref personList);
+            try
+            {
+                var personList = _context.Persons.ToList();
+                ExtractZipFromCity(ref personList);
 
-            return personList == null ? new List<PersonModel>() : personList;
+                return personList == null ? new List<PersonModel>() : personList;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
 
         private void ExtractZipFromCity(ref List<PersonModel> personList)
