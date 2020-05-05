@@ -64,8 +64,15 @@ namespace AssecorAssessmentTest.Services
                     _context.Persons.Add(person);
                 }                   
             }
-            
-            _context.SaveChanges();
+
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
     }
 }
