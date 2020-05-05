@@ -29,8 +29,9 @@ namespace AssecorAssessmentUnitTestProject
 
             // Act
             var personsModel = service.ReadFileToEmployeeModel();
+            
             if (personsModel == null || personsModel.Count == 0) return;
-            personsModel.RemoveAt(0);
+            //personsModel.RemoveAt(0);
 
             service.WriteNewFile(personsModel);
             

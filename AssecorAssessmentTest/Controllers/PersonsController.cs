@@ -23,9 +23,7 @@ namespace AssecorAssessmentTest.Controllers
         public PersonsController(IParserService iParserService)
         {
             IParserService = iParserService;
-
             Results = IParserService.ReadFileToEmployeeModel();
-
             UpdateColor(Results);
         }
 
