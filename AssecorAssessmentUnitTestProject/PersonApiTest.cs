@@ -19,7 +19,7 @@ namespace AssecorAssessmentUnitTestProject
 
         public PersonApiTest()
         {
-            ParserService.Setup(p => p.ReadCsvFileToEmployeeModel()).Returns(Persons);
+            ParserService.Setup(p => p.ReadFileToEmployeeModel()).Returns(Persons);
         }
 
         private static readonly Dictionary<int, string> Dictionary = new Dictionary<int, string>()

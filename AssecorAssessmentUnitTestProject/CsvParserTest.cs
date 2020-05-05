@@ -14,7 +14,7 @@ namespace AssecorAssessmentUnitTestProject
             IParserService service = new CsvParserService();
 
             // Act
-            var personsModel = service.ReadCsvFileToEmployeeModel();
+            var personsModel = service.ReadFileToEmployeeModel();
 
             // Assert
             Assert.AreEqual(personsModel.Count, 10);
@@ -28,11 +28,11 @@ namespace AssecorAssessmentUnitTestProject
             IParserService service = new CsvParserService();
 
             // Act
-            var personsModel = service.ReadCsvFileToEmployeeModel();
+            var personsModel = service.ReadFileToEmployeeModel();
             if (personsModel == null || personsModel.Count == 0) return;
             personsModel.RemoveAt(0);
 
-            service.WriteNewCsvFile(personsModel);
+            service.WriteNewFile(personsModel);
             
         }
     }

@@ -14,7 +14,7 @@ namespace AssecorAssessmentTest.Services
     {
         private const string path = @"C:\Users\dnadjbabi\Downloads\sample-input.csv";
      
-        public List<PersonModel> ReadCsvFileToEmployeeModel()
+        public List<PersonModel> ReadFileToEmployeeModel()
         {
             try
             {
@@ -114,7 +114,7 @@ namespace AssecorAssessmentTest.Services
             }
         }        
 
-        public void WriteNewCsvFile(List<PersonModel> personModels)
+        public void WriteNewFile(List<PersonModel> personModels)
         {
             using (StreamWriter sw = new StreamWriter(path, false, new UTF8Encoding(true)))
             using (CsvWriter cw = new CsvWriter(sw, System.Globalization.CultureInfo.InvariantCulture))

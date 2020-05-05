@@ -8,7 +8,7 @@ namespace AssecorAssessmentTest.Services
 {
     public interface IParserService
     {
-        List<PersonModel> ReadCsvFileToEmployeeModel();
-        void WriteNewCsvFile(List<PersonModel> personModels);
+        List<PersonModel> ReadFileToEmployeeModel();
+        void WriteNewFile(List<PersonModel> personModels);
     }
 }

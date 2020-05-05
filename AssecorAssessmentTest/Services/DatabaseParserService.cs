@@ -14,12 +14,30 @@ namespace AssecorAssessmentTest.Services
         {
             _context = context;
         }
-        public List<PersonModel> ReadCsvFileToEmployeeModel()
+        public List<PersonModel> ReadFileToEmployeeModel()
         {
-            return _context.Persons.ToList();
+            var personList = _context.Persons.ToList();
+            ExtractZipFromCity(ref personList);
+
+            return personList == null ? new List<PersonModel>() : personList;
         }
 
-        public void WriteNewCsvFile(List<PersonModel> personModels)
+        private void ExtractZipFromCity(ref List<PersonModel> personList)
+        {
+            foreach (var personCopy in personList)
+            {
+                string zipCity = personCopy.City;
+                string[] zipCityArray = zipCity.Split(' ');
+
+                if (zipCityArray.Length == 2)
+                {
+                    personCopy.Zipcode = zipCityArray[0];
+                    personCopy.City = zipCityArray[1];
+                }
+            }            
+        }
+
+        public void WriteNewFile(List<PersonModel> personModels)
         {           
             foreach (var person in personModels)
             {

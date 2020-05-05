@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AssecorAssessmentTest.Migrations
 {
     [DbContext(typeof(PersonDbContext))]
-    [Migration("20200504233631_Initial")]
+    [Migration("20200505000308_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,10 +48,9 @@ namespace AssecorAssessmentTest.Migrations
                         new
                         {
                             Id = 1,
-                            City = "Stralsund",
+                            City = "18439 Stralsund",
                             FirstName = "Peter",
-                            Lastname = "Petersen",
-                            Zipcode = "18439"
+                            Lastname = "Petersen"
                         },
                         new
                         {

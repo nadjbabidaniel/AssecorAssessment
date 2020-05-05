@@ -46,10 +46,9 @@ namespace AssecorAssessmentTest.Migrations
                         new
                         {
                             Id = 1,
-                            City = "Stralsund",
+                            City = "18439 Stralsund",
                             FirstName = "Peter",
-                            Lastname = "Petersen",
-                            Zipcode = "18439"
+                            Lastname = "Petersen"
                         },
                         new
                         {

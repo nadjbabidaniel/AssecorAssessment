@@ -25,7 +25,7 @@ namespace AssecorAssessmentTest.Migrations
             migrationBuilder.InsertData(
                 table: "Persons",
                 columns: new[] { "Id", "City", "Color", "FirstName", "Lastname", "Zipcode" },
-                values: new object[] { 1, "Stralsund", null, "Peter", "Petersen", "18439" });
+                values: new object[] { 1, "18439 Stralsund", null, "Peter", "Petersen", null });
 
             migrationBuilder.InsertData(
                 table: "Persons",

@@ -24,7 +24,7 @@ namespace AssecorAssessmentTest.Controllers
         {
             IParserService = iParserService;
 
-            Results = IParserService.ReadCsvFileToEmployeeModel();
+            Results = IParserService.ReadFileToEmployeeModel();
 
             UpdateColor(Results);
         }
@@ -64,7 +64,7 @@ namespace AssecorAssessmentTest.Controllers
         {
             try
             {
-                IParserService.WriteNewCsvFile(personModels);
+                IParserService.WriteNewFile(personModels);
             }
             catch (Exception e)
             {
