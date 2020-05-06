@@ -17,10 +17,13 @@ namespace AssecorAssessmentUnitTestProject
         private static readonly List<PersonModel> Persons = new List<PersonModel>() { PersonA, PersonB };
 
         private Mock<IParserService> ParserService = new Mock<IParserService>();
+        private readonly PersonsController controllerCtor;
+
 
         public PersonApiTest_XUnit()
         {
-            ParserService.Setup(p => p.ReadFileToEmployeeModel()).Returns(Persons);            
+            ParserService.Setup(p => p.ReadFileToEmployeeModel()).Returns(Persons);
+            controllerCtor = new PersonsController(ParserService.Object);
         }
 
         private static readonly Dictionary<int, string> Dictionary = new Dictionary<int, string>()
@@ -30,12 +33,9 @@ namespace AssecorAssessmentUnitTestProject
 
         [Fact]
         public void GetPersonsTest()
-        {
-            // Arrange                               
-            var controller = new PersonsController(ParserService.Object);
-
+        {       
             // Act
-            var jsonResponse = controller.GetPersons();
+            var jsonResponse = controllerCtor.GetPersons();
             List<PersonModel> response = JsonConvert.DeserializeObject<List<PersonModel>>(jsonResponse);
 
             // Assert
@@ -44,12 +44,9 @@ namespace AssecorAssessmentUnitTestProject
 
         [Fact]
         public void GetPersonsIdTest()
-        {
-            // Arrange          
-            var controller = new PersonsController(ParserService.Object);
-
+        {            
             // Act
-            var jsonResponse = controller.GetPerson(PersonA.Id);
+            var jsonResponse = controllerCtor.GetPerson(PersonA.Id);
             List<PersonModel> response = JsonConvert.DeserializeObject<List<PersonModel>>(jsonResponse);
 
             // Assert
@@ -58,14 +55,25 @@ namespace AssecorAssessmentUnitTestProject
             Assert.Equal(Dictionary[PersonA.Id], response[0].Color);
         }
 
+        [Theory]
+        [InlineData(1)]
+        [InlineData(6)]
+        public void GetPersonsInlineIdTest(int id)
+        {           
+            // Act
+            var jsonResponse = controllerCtor.GetPerson(id);
+            List<PersonModel> response = JsonConvert.DeserializeObject<List<PersonModel>>(jsonResponse);
+
+            // Assert
+            Assert.Single(response);
+            Assert.Equal(Dictionary[response[0].Id], response[0].Color);
+        }
+
         [Fact]
         public void GetColorTest()
         {
-            // Arrange           
-            var controller = new PersonsController(ParserService.Object);
-
             // Act
-            var jsonResponse = controller.GetColor(PersonB.Color);
+            var jsonResponse = controllerCtor.GetColor(PersonB.Color);
             List<PersonModel> response = JsonConvert.DeserializeObject<List<PersonModel>>(jsonResponse);
 
             // Assert
@@ -76,11 +84,8 @@ namespace AssecorAssessmentUnitTestProject
         [Fact]
         public void InsertPersonTest()
         {
-            // Arrange          
-            var controller = new PersonsController(ParserService.Object);
-
             // Act
-            controller.InsertPerson(Persons);   // Service is Mock so it wont be overridden        
+            controllerCtor.InsertPerson(Persons);   // Service is Mock so it wont be overridden        
         }
     }
 }
