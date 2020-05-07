@@ -8,7 +8,7 @@ namespace AssecorAssessmentUnitTestProject
     {
         [TestMethod]
         [TestCategory("Integration")]
-        public void ReadCsvFileTest()
+        public void ReadCsvFile_ShouldReturnAllPersons()
         {
             // Arrange        
             IParserService service = new CsvParserService();
@@ -22,7 +22,7 @@ namespace AssecorAssessmentUnitTestProject
 
         [TestMethod]
         [TestCategory("Integration")]
-        public void WriteNewCsvFileTest()
+        public void WriteNewCsvFile_ShouldWriteAllPersons()
         {
             // Arrange        
             IParserService service = new CsvParserService();

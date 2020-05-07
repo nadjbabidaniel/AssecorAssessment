@@ -28,7 +28,7 @@ namespace AssecorAssessmentUnitTestProject
         };
 
         [TestMethod]
-        public void GetPersonsTest()
+        public void GetPersons_ShouldReturnPersons()
         {            
              // Arrange                               
             var controller = new PersonsController(ParserService.Object);
@@ -42,7 +42,7 @@ namespace AssecorAssessmentUnitTestProject
         }
 
         [TestMethod]
-        public void GetPersonsIdTest()
+        public void GetPersonsInlineId_ShouldReturnOnePerson()
         {
             // Arrange          
             var controller = new PersonsController(ParserService.Object);
@@ -58,7 +58,7 @@ namespace AssecorAssessmentUnitTestProject
         }
 
         [TestMethod]
-        public void GetColorTest()
+        public void GetColor_ShouldReturnPersonsList_WithSameColor()
         {
             // Arrange           
             var controller = new PersonsController(ParserService.Object);
@@ -73,7 +73,7 @@ namespace AssecorAssessmentUnitTestProject
         }
 
         [TestMethod]
-        public void InsertPersonTest()
+        public void InsertPerson_ShouldInsertPerson()
         {
             // Arrange          
             var controller = new PersonsController(ParserService.Object);

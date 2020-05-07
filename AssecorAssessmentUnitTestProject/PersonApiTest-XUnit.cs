@@ -32,7 +32,7 @@ namespace AssecorAssessmentUnitTestProject
         };
 
         [Fact]
-        public void GetPersonsTest()
+        public void GetPersons_ShouldReturnPersons()
         {       
             // Act
             var jsonResponse = controllerCtor.GetPersons();
@@ -43,7 +43,7 @@ namespace AssecorAssessmentUnitTestProject
         }
 
         [Fact]
-        public void GetPersonsIdTest()
+        public void GetPersonsId_ShouldReturnOnePerson()
         {            
             // Act
             var jsonResponse = controllerCtor.GetPerson(PersonA.Id);
@@ -58,7 +58,7 @@ namespace AssecorAssessmentUnitTestProject
         [Theory]
         [InlineData(1)]
         [InlineData(6)]
-        public void GetPersonsInlineIdTest(int id)
+        public void GetPersonsInlineId_ShouldReturnOnePerson(int id)
         {           
             // Act
             var jsonResponse = controllerCtor.GetPerson(id);
@@ -70,7 +70,7 @@ namespace AssecorAssessmentUnitTestProject
         }
 
         [Fact]
-        public void GetColorTest()
+        public void GetColor_ShouldReturnPersonsList_WithSameColor()
         {
             // Act
             var jsonResponse = controllerCtor.GetColor(PersonB.Color);
@@ -82,7 +82,7 @@ namespace AssecorAssessmentUnitTestProject
         }
 
         [Fact]
-        public void InsertPersonTest()
+        public void InsertPerson_ShouldInsertPerson()
         {
             // Act
             controllerCtor.InsertPerson(Persons);   // Service is Mock so it wont be overridden        
