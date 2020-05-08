@@ -1,6 +1,7 @@
 ﻿using AssecorAssessmentTest.Controllers;
 using AssecorAssessmentTest.Model;
 using AssecorAssessmentTest.Services;
+using Microsoft.AspNetCore.Authorization;
 using Moq;
 using Newtonsoft.Json;
  
@@ -90,6 +91,21 @@ namespace AssecorAssessmentUnitTestProject
             // Assert
             Assert.Single(response);
             Assert.Equal(Dictionary[PersonB.Id], response[0].Color);
+        }
+
+        [Fact]
+        public void ServiceTest()
+        {
+            //Arrange
+            ParserService.Setup(p => p.ReadFileToEmployeeModel()).Returns(new List<PersonModel>());
+            var ctor_EmptyList = new PersonsController(ParserService.Object);
+
+            // Act
+            var jsonResponse = ctor_EmptyList.GetPerson(5);
+            List<PersonModel> response = JsonConvert.DeserializeObject<List<PersonModel>>(jsonResponse);
+
+            // Assert
+            Assert.Empty(response);
         }
 
         [Fact]
