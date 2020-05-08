@@ -55,6 +55,17 @@ namespace AssecorAssessmentUnitTestProject
             Assert.Equal(Dictionary[PersonA.Id], response[0].Color);
         }
 
+        [Fact]
+        public void GetPersonsId_ShouldReturnNull()
+        {
+            // Act
+            var jsonResponse = controllerCtor.GetPerson(5);
+            List<PersonModel> response = JsonConvert.DeserializeObject<List<PersonModel>>(jsonResponse);
+
+            // Assert
+            Assert.Empty(response);
+        }
+
         [Theory]
         [InlineData(1)]
         [InlineData(6)]
