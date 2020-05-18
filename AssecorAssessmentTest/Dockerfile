@@ -1,22 +1,20 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS base
 WORKDIR /app
 EXPOSE 80
-EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
 WORKDIR /src
-COPY ["AssecorAssessmentTest/AssecorAssessmentTest.csproj", "AssecorAssessmentTest/"]
-RUN dotnet restore "AssecorAssessmentTest/AssecorAssessmentTest.csproj"
+COPY ["AssecorAssessmentTest.csproj", "./"]
+RUN dotnet restore "./AssecorAssessmentTest.csproj"
 COPY . .
-WORKDIR "/src/AssecorAssessmentTest"
-RUN dotnet build "AssecorAssessmentTest.csproj" -c Release -o /app/build
+RUN dotnet build "AssecorAssessmentTest.csproj" -c Release -o /app/
 
 FROM build AS publish
-RUN dotnet publish "AssecorAssessmentTest.csproj" -c Release -o /app/publish
+RUN dotnet publish "AssecorAssessmentTest.csproj" -c Release -o /app/
 
 FROM base AS final
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=publish /app .
 ENTRYPOINT ["dotnet", "AssecorAssessmentTest.dll"]
