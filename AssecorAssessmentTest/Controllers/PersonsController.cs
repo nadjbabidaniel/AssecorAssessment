@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
-using System.Threading.Tasks;
 using AssecorAssessmentTest.Model;
 using AssecorAssessmentTest.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace AssecorAssessmentTest.Controllers
 {
@@ -42,7 +40,6 @@ namespace AssecorAssessmentTest.Controllers
             return JsonSerializer.Serialize(Results);
         }
 
-        //[HttpGet("{id}")]
         [HttpGet]        
         [Route("/persons/{id}")]
         public string GetPerson(int id)
@@ -67,8 +64,7 @@ namespace AssecorAssessmentTest.Controllers
             }
             catch (Exception e)
             {
-
-                throw;
+                throw new Exception(e.Message);
             }
         }
     }

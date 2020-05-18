@@ -12,7 +12,6 @@ namespace AssecorAssessmentTest.Services
 {
     public class CsvParserService : IParserService
     {
-        //private const string path = @"C:\Users\dnadjbabi\Downloads\sample-input.csv";
         private const string path = @"C:\sample-input.csv";
      
         public List<PersonModel> ReadFileToEmployeeModel()
@@ -21,12 +20,9 @@ namespace AssecorAssessmentTest.Services
             {
                 using (var reader = new StreamReader(path, Encoding.Default))
                 using (var csv = new CsvReader(reader, System.Globalization.CultureInfo.InvariantCulture))
-                {
-                    //csv.Configuration.RegisterClassMap<PersonMap>();
-                    //csv.Configuration.HeaderValidated = null;
-
+                {                  
                     csv.Configuration.IgnoreBlankLines = true;
-                    csv.Configuration.Delimiter = ", ";  // remove empty space and do it with Trim()
+                    csv.Configuration.Delimiter = ", ";  
                     csv.Configuration.HasHeaderRecord = false;                    
                     csv.Configuration.MissingFieldFound = null;
 
