@@ -1,12 +1,9 @@
-﻿using AssecorAssessmentTest.Mappers;
-using AssecorAssessmentTest.Model;
+﻿using AssecorAssessmentTest.Model;
 using CsvHelper;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AssecorAssessmentTest.Services
 {
@@ -68,13 +65,11 @@ namespace AssecorAssessmentTest.Services
                             continue;
                             
                         }
-                        else
-                        {
-                            elements.Clear();
-                            personModel = csv.GetRecord<PersonModel>();
-                            ExtractZipFromCity(ref personModel);
-                        }
-                        
+
+                        elements.Clear();
+                        personModel = csv.GetRecord<PersonModel>();
+                        ExtractZipFromCity(ref personModel);
+
                         records.Add(personModel);
                     }                   
 
