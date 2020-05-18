@@ -19,8 +19,8 @@ namespace AssecorAssessmentTest.Services
             try
             {
                 using (var reader = new StreamReader(path, Encoding.Default))
-                using (var csv = new CsvReader(reader, System.Globalization.CultureInfo.InvariantCulture))
-                {                  
+                {
+                    var csv = new CsvReader(reader, System.Globalization.CultureInfo.InvariantCulture);
                     csv.Configuration.IgnoreBlankLines = true;
                     csv.Configuration.Delimiter = ", ";  
                     csv.Configuration.HasHeaderRecord = false;                    
@@ -113,12 +113,12 @@ namespace AssecorAssessmentTest.Services
 
         public void WriteNewFile(List<PersonModel> personModels)
         {
-            using (StreamWriter sw = new StreamWriter(path, false, new UTF8Encoding(true)))
-            using (CsvWriter cw = new CsvWriter(sw, System.Globalization.CultureInfo.InvariantCulture))
+            using (var sw = new StreamWriter(path, false, new UTF8Encoding(true)))
             {
+                var cw = new CsvWriter(sw, System.Globalization.CultureInfo.InvariantCulture);
                 cw.Configuration.Delimiter = ", ";
 
-                foreach (PersonModel person in personModels)
+                foreach (var person in personModels)
                 {                    
                     cw.WriteRecord<PersonModel>(person);
                     cw.NextRecord();
