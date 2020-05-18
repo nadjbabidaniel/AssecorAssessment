@@ -64,7 +64,6 @@ namespace AssecorAssessmentTest.Services
                         }
 
                         continue;
-
                     }
 
                     elements.Clear();
