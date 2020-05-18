@@ -9,13 +9,13 @@ namespace AssecorAssessmentTest.Services
 {
     public class CsvParserService : IParserService
     {
-        private const string path = @"C:\sample-input.csv";
+        private const string Path = @"C:\sample-input.csv";
      
         public List<PersonModel> ReadFileToEmployeeModel()
         {
             try
             {
-                using var reader = new StreamReader(path, Encoding.Default);
+                using var reader = new StreamReader(Path, Encoding.Default);
                 using var csv = new CsvReader(reader, System.Globalization.CultureInfo.InvariantCulture);
                 csv.Configuration.IgnoreBlankLines = true;
                 csv.Configuration.Delimiter = ", ";
@@ -107,7 +107,7 @@ namespace AssecorAssessmentTest.Services
 
         public void WriteNewFile(List<PersonModel> personModels)
         {
-            using var sw = new StreamWriter(path, false, new UTF8Encoding(true));
+            using var sw = new StreamWriter(Path, false, new UTF8Encoding(true));
             using var cw = new CsvWriter(sw, System.Globalization.CultureInfo.InvariantCulture);
             cw.Configuration.Delimiter = ", ";
 
