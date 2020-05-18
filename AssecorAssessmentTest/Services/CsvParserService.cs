@@ -15,66 +15,66 @@ namespace AssecorAssessmentTest.Services
         {
             try
             {
-                using (var reader = new StreamReader(path, Encoding.Default))
+                using var reader = new StreamReader(path, Encoding.Default);
+                using var csv = new CsvReader(reader, System.Globalization.CultureInfo.InvariantCulture);
+                csv.Configuration.IgnoreBlankLines = true;
+                csv.Configuration.Delimiter = ", ";
+                csv.Configuration.HasHeaderRecord = false;
+                csv.Configuration.MissingFieldFound = null;
+
+                List<PersonModel> records = new List<PersonModel>();
+
+                List<string> elements = new List<string>();
+                while (csv.Read())
                 {
-                    var csv = new CsvReader(reader, System.Globalization.CultureInfo.InvariantCulture);
-                    csv.Configuration.IgnoreBlankLines = true;
-                    csv.Configuration.Delimiter = ", ";  
-                    csv.Configuration.HasHeaderRecord = false;                    
-                    csv.Configuration.MissingFieldFound = null;
+                    #region GetField
 
-                    List<PersonModel> records = new List<PersonModel>();
+                    var temp0 = csv.GetField(0);
+                    var temp1 = csv.GetField(1);
+                    var temp2 = csv.GetField(2);
+                    var ID = csv.GetField(3);
 
-                    List<string> elements = new List<string>();
-                    while (csv.Read())
+                    #endregion
+
+                    PersonModel personModel = null;
+
+                    if (string.IsNullOrEmpty(ID))
                     {
-                        #region GetField
-                        var temp0 = csv.GetField(0);
-                        var temp1 = csv.GetField(1);
-                        var temp2 = csv.GetField(2);
-                        var ID = csv.GetField(3);
-                        #endregion
+                        if (!string.IsNullOrEmpty(temp0)) elements.Add(temp0);
+                        if (!string.IsNullOrEmpty(temp1)) elements.Add(temp1);
+                        if (!string.IsNullOrEmpty(temp2)) elements.Add(temp2);
 
-                        PersonModel personModel = null;
-
-                        if (string.IsNullOrEmpty(ID))
+                        if (elements.Count == 4)
                         {
-                            if (!string.IsNullOrEmpty(temp0)) elements.Add(temp0);
-                            if (!string.IsNullOrEmpty(temp1)) elements.Add(temp1);
-                            if (!string.IsNullOrEmpty(temp2)) elements.Add(temp2);                           
-
-                            if (elements.Count == 4)
-                            {                                
-                                if(int.TryParse(elements[3], out int IdElement))
+                            if (int.TryParse(elements[3], out int IdElement))
+                            {
+                                personModel = new PersonModel()
                                 {
-                                    personModel = new PersonModel()
-                                    {
-                                        FirstName = elements[0],
-                                        Lastname = elements[1],
-                                        City = elements[2],
-                                        Id = IdElement
-                                    };
+                                    FirstName = elements[0],
+                                    Lastname = elements[1],
+                                    City = elements[2],
+                                    Id = IdElement
+                                };
 
-                                    ExtractZipFromCity(ref personModel);
-                                    records.Add(personModel);
-                                }
-                                
-                                elements.Clear();
+                                ExtractZipFromCity(ref personModel);
+                                records.Add(personModel);
                             }
-                            
-                            continue;
-                            
+
+                            elements.Clear();
                         }
 
-                        elements.Clear();
-                        personModel = csv.GetRecord<PersonModel>();
-                        ExtractZipFromCity(ref personModel);
+                        continue;
 
-                        records.Add(personModel);
-                    }                   
+                    }
 
-                    return records;
+                    elements.Clear();
+                    personModel = csv.GetRecord<PersonModel>();
+                    ExtractZipFromCity(ref personModel);
+
+                    records.Add(personModel);
                 }
+
+                return records;
             }
             catch (UnauthorizedAccessException e)
             {
@@ -104,20 +104,18 @@ namespace AssecorAssessmentTest.Services
                 personCopy.Zipcode = zipCityArray[0];
                 personCopy.City = zipCityArray[1]; 
             }
-        }        
+        }
 
         public void WriteNewFile(List<PersonModel> personModels)
         {
-            using (var sw = new StreamWriter(path, false, new UTF8Encoding(true)))
-            {
-                var cw = new CsvWriter(sw, System.Globalization.CultureInfo.InvariantCulture);
-                cw.Configuration.Delimiter = ", ";
+            using var sw = new StreamWriter(path, false, new UTF8Encoding(true));
+            using var cw = new CsvWriter(sw, System.Globalization.CultureInfo.InvariantCulture);
+            cw.Configuration.Delimiter = ", ";
 
-                foreach (var person in personModels)
-                {                    
-                    cw.WriteRecord<PersonModel>(person);
-                    cw.NextRecord();
-                }
+            foreach (var person in personModels)
+            {
+                cw.WriteRecord<PersonModel>(person);
+                cw.NextRecord();
             }
         }
     }
