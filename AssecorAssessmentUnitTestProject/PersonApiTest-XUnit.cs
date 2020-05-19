@@ -13,18 +13,18 @@ namespace AssecorAssessmentUnitTestProject
 {
     public class PersonApiTest_XUnit
     {
-        private static readonly PersonModel PersonA = new PersonModel() { Id = 1, Lastname = "Petersen", FirstName = "Peter", City = "Stralsund", Zipcode = "18439", Color = "blau" };
-        private static readonly PersonModel PersonB = new PersonModel() { Id = 6, Lastname = "Fujitsu,", FirstName = "Tastatur,", City = "Japan,", Zipcode = "42342", Color = "türkis" };
-        private static readonly List<PersonModel> Persons = new List<PersonModel>() { PersonA, PersonB };
+        private static readonly PersonModel PersonA = new PersonModel { Id = 1, Lastname = "Petersen", FirstName = "Peter", City = "Stralsund", Zipcode = "18439", Color = "blau" };
+        private static readonly PersonModel PersonB = new PersonModel { Id = 6, Lastname = "Fujitsu,", FirstName = "Tastatur,", City = "Japan,", Zipcode = "42342", Color = "türkis" };
+        private static readonly List<PersonModel> Persons = new List<PersonModel> { PersonA, PersonB };
 
-        private Mock<IParserService> ParserService = new Mock<IParserService>();
-        private readonly PersonsController controllerCtor;
+        private readonly Mock<IParserService> _parserService = new Mock<IParserService>();
+        private readonly PersonsController _controllerCtor;
 
 
         public PersonApiTest_XUnit()
         {
-            ParserService.Setup(p => p.ReadFileToEmployeeModel()).Returns(Persons);
-            controllerCtor = new PersonsController(ParserService.Object);
+            _parserService.Setup(p => p.ReadFileToEmployeeModel()).Returns(Persons);
+            _controllerCtor = new PersonsController(_parserService.Object);
         }
 
         private static readonly Dictionary<int, string> Dictionary = new Dictionary<int, string>()
@@ -36,7 +36,7 @@ namespace AssecorAssessmentUnitTestProject
         public void GetPersons_ShouldReturnPersons()
         {       
             // Act
-            var jsonResponse = controllerCtor.GetPersons();
+            var jsonResponse = _controllerCtor.GetPersons();
             List<PersonModel> response = JsonConvert.DeserializeObject<List<PersonModel>>(jsonResponse);
 
             // Assert
@@ -47,7 +47,7 @@ namespace AssecorAssessmentUnitTestProject
         public void GetPersonsId_ShouldReturnOnePerson()
         {            
             // Act
-            var jsonResponse = controllerCtor.GetPerson(PersonA.Id);
+            var jsonResponse = _controllerCtor.GetPerson(PersonA.Id);
             List<PersonModel> response = JsonConvert.DeserializeObject<List<PersonModel>>(jsonResponse);
 
             // Assert
@@ -60,7 +60,7 @@ namespace AssecorAssessmentUnitTestProject
         public void GetPersonsId_ShouldReturnNull()
         {
             // Act
-            var jsonResponse = controllerCtor.GetPerson(5);
+            var jsonResponse = _controllerCtor.GetPerson(5);
             List<PersonModel> response = JsonConvert.DeserializeObject<List<PersonModel>>(jsonResponse);
 
             // Assert
@@ -73,7 +73,7 @@ namespace AssecorAssessmentUnitTestProject
         public void GetPersonsInlineId_ShouldReturnOnePerson(int id)
         {           
             // Act
-            var jsonResponse = controllerCtor.GetPerson(id);
+            var jsonResponse = _controllerCtor.GetPerson(id);
             List<PersonModel> response = JsonConvert.DeserializeObject<List<PersonModel>>(jsonResponse);
 
             // Assert
@@ -85,7 +85,7 @@ namespace AssecorAssessmentUnitTestProject
         public void GetColor_ShouldReturnPersonsList_WithSameColor()
         {
             // Act
-            var jsonResponse = controllerCtor.GetColor(PersonB.Color);
+            var jsonResponse = _controllerCtor.GetColor(PersonB.Color);
             List<PersonModel> response = JsonConvert.DeserializeObject<List<PersonModel>>(jsonResponse);
 
             // Assert
@@ -97,8 +97,8 @@ namespace AssecorAssessmentUnitTestProject
         public void ServiceTest()
         {
             //Arrange
-            ParserService.Setup(p => p.ReadFileToEmployeeModel()).Returns(new List<PersonModel>());
-            var ctor_EmptyList = new PersonsController(ParserService.Object);
+            _parserService.Setup(p => p.ReadFileToEmployeeModel()).Returns(new List<PersonModel>());
+            var ctor_EmptyList = new PersonsController(_parserService.Object);
 
             // Act
             var jsonResponse = ctor_EmptyList.GetPerson(5);
@@ -112,7 +112,7 @@ namespace AssecorAssessmentUnitTestProject
         public void InsertPerson_ShouldInsertPerson()
         {
             // Act
-            controllerCtor.InsertPerson(Persons);   // Service is Mock so it wont be overridden        
+            _controllerCtor.InsertPerson(Persons);   // Service is Mock so it wont be overridden        
         }
     }
 }

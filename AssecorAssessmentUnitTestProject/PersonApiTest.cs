@@ -11,15 +11,15 @@ namespace AssecorAssessmentUnitTestProject
     [TestClass]
     public class PersonApiTest
     {
-        private static readonly PersonModel PersonA = new PersonModel() { Id = 1, Lastname = "Petersen", FirstName = "Peter", City = "Stralsund", Zipcode = "18439", Color = "blau"};
-        private static readonly PersonModel PersonB = new PersonModel() { Id = 6, Lastname = "Fujitsu,", FirstName = "Tastatur,", City = "Japan,", Zipcode = "42342", Color = "türkis" };
-        private static readonly List<PersonModel> Persons = new List<PersonModel>() { PersonA, PersonB };
+        private static readonly PersonModel PersonA = new PersonModel { Id = 1, Lastname = "Petersen", FirstName = "Peter", City = "Stralsund", Zipcode = "18439", Color = "blau"};
+        private static readonly PersonModel PersonB = new PersonModel { Id = 6, Lastname = "Fujitsu,", FirstName = "Tastatur,", City = "Japan,", Zipcode = "42342", Color = "türkis" };
+        private static readonly List<PersonModel> Persons = new List<PersonModel> { PersonA, PersonB };
 
-        private Mock<IParserService> ParserService = new Mock<IParserService>();
+        private readonly Mock<IParserService> _parserService = new Mock<IParserService>();
 
         public PersonApiTest()
         {
-            ParserService.Setup(p => p.ReadFileToEmployeeModel()).Returns(Persons);
+            _parserService.Setup(p => p.ReadFileToEmployeeModel()).Returns(Persons);
         }
 
         private static readonly Dictionary<int, string> Dictionary = new Dictionary<int, string>()
@@ -31,7 +31,7 @@ namespace AssecorAssessmentUnitTestProject
         public void GetPersons_ShouldReturnPersons()
         {            
              // Arrange                               
-            var controller = new PersonsController(ParserService.Object);
+            var controller = new PersonsController(_parserService.Object);
 
             // Act
             var jsonResponse = controller.GetPersons();
@@ -45,7 +45,7 @@ namespace AssecorAssessmentUnitTestProject
         public void GetPersonsInlineId_ShouldReturnOnePerson()
         {
             // Arrange          
-            var controller = new PersonsController(ParserService.Object);
+            var controller = new PersonsController(_parserService.Object);
 
             // Act
             var jsonResponse = controller.GetPerson(PersonA.Id);
@@ -61,7 +61,7 @@ namespace AssecorAssessmentUnitTestProject
         public void GetColor_ShouldReturnPersonsList_WithSameColor()
         {
             // Arrange           
-            var controller = new PersonsController(ParserService.Object);
+            var controller = new PersonsController(_parserService.Object);
 
             // Act
             var jsonResponse = controller.GetColor(PersonB.Color);
@@ -76,7 +76,7 @@ namespace AssecorAssessmentUnitTestProject
         public void InsertPerson_ShouldInsertPerson()
         {
             // Arrange          
-            var controller = new PersonsController(ParserService.Object);
+            var controller = new PersonsController(_parserService.Object);
 
             // Act
             controller.InsertPerson(Persons);   // Service is Mock so it wont be overridden        
