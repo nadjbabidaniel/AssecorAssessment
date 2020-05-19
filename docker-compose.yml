@@ -1,0 +1,26 @@
+version: '3'
+networks:
+  localdev:
+   name:localdev
+
+services:
+    web:
+        build: AssecorAssessmentTest/
+        restart: always 
+        ports:
+            - "8000:80"
+        depends_on:
+            - db
+        networks:
+            - localdev
+    db:
+        image: microsoft/mssql-server-server-linux:2017-latest
+        container_name: db
+        environment:
+            - SA_PASSWORD=Password123!
+            - ACCEPT_EULA=Y
+            - MSSQL_TCP_PORT=1433
+        ports:
+            - "1400:1433"
+        networks:
+            - localdev 
