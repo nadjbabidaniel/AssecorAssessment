@@ -22,9 +22,9 @@ namespace AssecorAssessmentTest.Services
                 csv.Configuration.HasHeaderRecord = false;
                 csv.Configuration.MissingFieldFound = null;
 
-                List<PersonModel> records = new List<PersonModel>();
+                var records = new List<PersonModel>();
 
-                List<string> elements = new List<string>();
+                var elements = new List<string>();
                 while (csv.Read())
                 {
                     #region GetField
@@ -32,13 +32,13 @@ namespace AssecorAssessmentTest.Services
                     var temp0 = csv.GetField(0);
                     var temp1 = csv.GetField(1);
                     var temp2 = csv.GetField(2);
-                    var ID = csv.GetField(3);
+                    var id = csv.GetField(3);
 
                     #endregion
 
                     PersonModel personModel = null;
 
-                    if (string.IsNullOrEmpty(ID))
+                    if (string.IsNullOrEmpty(id))
                     {
                         if (!string.IsNullOrEmpty(temp0)) elements.Add(temp0);
                         if (!string.IsNullOrEmpty(temp1)) elements.Add(temp1);
@@ -46,14 +46,14 @@ namespace AssecorAssessmentTest.Services
 
                         if (elements.Count == 4)
                         {
-                            if (int.TryParse(elements[3], out int IdElement))
+                            if (int.TryParse(elements[3], out int idElement))
                             {
-                                personModel = new PersonModel()
+                                personModel = new PersonModel
                                 {
                                     FirstName = elements[0],
                                     Lastname = elements[1],
                                     City = elements[2],
-                                    Id = IdElement
+                                    Id = idElement
                                 };
 
                                 ExtractZipFromCity(ref personModel);

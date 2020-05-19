@@ -25,11 +25,12 @@ namespace AssecorAssessmentTest.Controllers
             UpdateColor(Results);
         }
 
-        private void UpdateColor(List<PersonModel> results)
+        private void UpdateColor(IEnumerable<PersonModel> results)
         {
             foreach (var person in results)
             {
-                person.Color = Dictionary[person.Id];
+                if (Dictionary.ContainsKey(person.Id))
+                    person.Color = Dictionary[person.Id];
             }
         }
 
@@ -40,11 +41,11 @@ namespace AssecorAssessmentTest.Controllers
             return JsonSerializer.Serialize(Results);
         }
 
-        [HttpGet]        
+        [HttpGet]
         [Route("/persons/{id}")]
         public string GetPerson(int id)
         {
-            return JsonSerializer.Serialize(Results.FindAll(x => x.Id == id).ToList());            
+            return JsonSerializer.Serialize(Results.FindAll(x => x.Id == id).ToList());
         }
 
         [HttpGet]
