@@ -9,7 +9,7 @@ services:
         ports:
             - "1433:1433"         
     web-api:
-        build: AssecorAssessmentTest/        
+        build: .        
         ports:
             - "8080:80"   
         depends_on:

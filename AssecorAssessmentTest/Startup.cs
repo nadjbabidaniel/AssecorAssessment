@@ -22,11 +22,11 @@ namespace AssecorAssessmentTest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<PersonDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PersonDb")));
+            //services.AddDbContext<PersonDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PersonDb")));
 
             services.AddControllers();
-            //services.AddScoped<IParserService, CsvParserService>();
-            services.AddScoped<IParserService, DatabaseParserService>();
+            services.AddScoped<IParserService, CsvParserService>();
+            //services.AddScoped<IParserService, DatabaseParserService>();
 
             services.AddSwaggerGen((options) => 
             {
@@ -62,11 +62,11 @@ namespace AssecorAssessmentTest
                 endpoints.MapControllers();
             });
 
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-                var context = serviceScope.ServiceProvider.GetRequiredService<PersonDbContext>();
-                context.Database.Migrate();
-            }
+            //using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            //{
+            //    var context = serviceScope.ServiceProvider.GetRequiredService<PersonDbContext>();
+            //    context.Database.Migrate();
+            //}
 
         }
     }

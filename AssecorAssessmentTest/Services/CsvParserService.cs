@@ -9,7 +9,8 @@ namespace AssecorAssessmentTest.Services
 {
     public class CsvParserService : IParserService
     {
-        private const string Path = @"C:\sample-input.csv";
+        //private const string Path = @"C:\sample-input.csv";
+        private const string Path = @"/app/sample-input.csv";
      
         public List<PersonModel> ReadFileToEmployeeModel()
         {
